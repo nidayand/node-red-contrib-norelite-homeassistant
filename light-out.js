@@ -32,8 +32,8 @@ module.exports = function (RED) {
         };
 
         if (omsg.is_enabled()){
-            nmsg.rgb_color = [color.r, color.g, color.b];
-            nmsg.brightness = parseInt(omsg.getDim()/100*255);
+            nmsg.payload.data.rgb_color = [color.r, color.g, color.b];
+            nmsg.payload.data.brightness = parseInt(omsg.getDim()/100*255);
 
             if (self.toggle){
                 nmsg.payload.service = "toggle";
