@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-norelite-homeassistant",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node-RED helper nodes for node-red-contrib-norelite and node-red-contrib-home-assistant-websocket",
   "keywords": [
     "node-red",
@@ -20,12 +20,8 @@
     "url": "https://github.com/nidayand/node-red-contrib-norelite-homeassistant/issues"
   },
   "homepage": "https://github.com/nidayand/node-red-contrib-norelite-homeassistant#readme",
-  "dependencies": {
-
-  },
-  "devDependencies": {
-
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "node-red": {
     "nodes": {
       "light-out": "light-out.js",
