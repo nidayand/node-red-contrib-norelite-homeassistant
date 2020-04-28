@@ -28,7 +28,8 @@
   },
   "node-red": {
     "nodes": {
-      "light-out": "light-out.js"
+      "light-out": "light-out.js",
+      "switch-out": "switch-out.js"
     }
   }
 }
