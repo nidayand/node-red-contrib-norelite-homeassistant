@@ -26,14 +26,15 @@ module.exports = function (RED) {
             payload: {
                 "service" : "",
                 "data" : {
-                    "rgb_color" : [color.r, color.g, color.b],
-                    "brightness" : parseInt(omsg.getDim()/100*255),
                     "transition": omsg.getTransition()
                 }    
             }
         };
 
         if (omsg.is_enabled()){
+            nmsg.rgb_color = [color.r, color.g, color.b];
+            nmsg.brightness = parseInt(omsg.getDim()/100*255);
+
             if (self.toggle){
                 nmsg.payload.service = "toggle";
                 common.setStatus(self, 1, "Toggle " + omsg.getDim() + "%");
