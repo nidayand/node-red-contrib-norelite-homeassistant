@@ -21,6 +21,9 @@ module.exports = function (RED) {
         var omsg = new Message(self, msg);
         //Convert color to RGB
         var color = Helper.getColorHexToRgb(omsg.getColor());
+
+        //Check if toggle is set in incoming message
+        var toggleInMessage = (typeof msg.toggle === "boolean" && msg.toggle);
         
         var nmsg = {
             payload: {
@@ -35,7 +38,7 @@ module.exports = function (RED) {
             nmsg.payload.data.rgb_color = [color.r, color.g, color.b];
             nmsg.payload.data.brightness = parseInt(omsg.getDim()/100*255);
 
-            if (self.toggle){
+            if (self.toggle || toggleInMessage){
                 nmsg.payload.service = "toggle";
                 common.setStatus(self, 1, "Toggle " + omsg.getDim() + "%");
             } else {
