@@ -34,6 +34,9 @@
         <code>msg.payload</code> is a mandatory object in the norelite messaging format with <code>msg.payload.transition</code> as an optional parameter. If transition time is not set, the default value is 1 second.
     </p>
     <p>
+        <code>msg.payload.enabled</code> defines if a light should be turned on or off. <code>msg.payload.type</code> is required (mandatory in Norelite messaging format) but not used to steer the light. <code>msg.payload.dim</code> is a value between 0-100 to set the brightness. <code>msg.payload.color</code> is the color in HEX format to set the color of the light.
+    </p>
+    <p>
         Toggle can be set either by <code>msg.toggle</code> is set to <code>true</code> or mark the checkbox in the node configuration. This is an optional parameter. Note that <code>msg.payload.enabled</code> still must be <code>true</code> to work otherwise it will turn the light off. 
         If toggle is enabled in the node configuration an incoming <code>msg.toggle</code> will not override the node configuration.
     </p>
