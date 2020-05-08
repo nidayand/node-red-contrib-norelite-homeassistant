@@ -10,44 +10,35 @@
         <input type="checkbox" id="node-input-toggle" placeholder="Only" style="display: inline-block; width: auto; vertical-align: top;">
         <label for="node-input-toggle" style="width: 70%;">Toggle</label>
     </div>
+    <div class="form-row">
+        <label for="node-input-transition"><i class="fa fa-clock-o"></i> Transition</label>
+        <input type="text" id="node-input-transition" placeholder="Time" style="width:50px !important"> seconds
+    </div>
 </script>
 <script type="text/x-red" data-help-name="lights-out">
-    <p>
-        Convert the Norelite payload into a format for the <a href="https://www.npmjs.com/package/node-red-contrib-home-assistant-websocket">node-red-contrib-home-assistant-websocket</a>&nbsp;"call service" node input format to control lights.
-    </p>
+    <p>Convert the Norelite payload into a format for the <a href="https://www.npmjs.com/package/node-red-contrib-home-assistant-websocket">node-red-contrib-home-assistant-websocket</a>&nbsp;"call service" node input format to control lights.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">object</span>
-        </dt>
-        <dd> the payload of the message to publish in Norelite message format with the addition of <code>transition</code> that is optional. <code>transition</code> is the time in seconds to transition between states.
-            <p><code>{<br />"id": "851453b0.5262" <br />"enabled":true,<br />"type": 0, <br />"dim": 100<br />"color": "#FFFFFF",<br />"transition": 1<br />}</code></p>
-        </dd>
-        <dt>toggle
-            <span class="property-type">boolean</span>
-        </dt>
-        <dd> (optional) toggle the light state
-        </dd>
+    <dt>payload <span class="property-type">object</span></dt>
+    <dd>the payload of the message to publish in Norelite message format with the addition of <code>transition</code> that is optional. <code>transition</code> is the time in seconds to transition between states.
+    <p><code>{<br />"id": "851453b0.5262" <br />"enabled":true,<br />"type": 0, <br />"dim": 100<br />"color": "#FFFFFF",<br />"transition": 1<br />}</code></p>
+    </dd>
+    <dt>toggle <span class="property-type">boolean</span></dt>
+    <dd>(optional) toggle the light state</dd>
     </dl>
     <h3>Details</h3>
-    <p>
-        <code>msg.payload</code> is a mandatory object in the norelite messaging format with <code>msg.payload.transition</code> as an optional parameter. If transition time is not set, the default value is 1 second.
-    </p>
-    <p>
-        <code>msg.payload.enabled</code> defines if a light should be turned on or off. <code>msg.payload.type</code> is required (mandatory in Norelite messaging format) but not used to steer the light. <code>msg.payload.dim</code> is a value between 0-100 to set the brightness. <code>msg.payload.color</code> is the color in HEX format to set the color of the light.
-    </p>
-    <p>
-        Toggle can be set either by <code>msg.toggle</code> is set to <code>true</code> or mark the checkbox in the node configuration. This is an optional parameter. Note that <code>msg.payload.enabled</code> still must be <code>true</code> to work otherwise it will turn the light off. 
-        If toggle is enabled in the node configuration an incoming <code>msg.toggle</code> will not override the node configuration.
-    </p>
+    <p><code>msg.payload</code> is a mandatory object in the norelite messaging format with <code>msg.payload.transition</code> as an optional parameter. If transition time is not set, the default value is 1 second.</p>
+    <p><code>msg.payload.enabled</code> defines if a light should be turned on or off. <code>msg.payload.type</code> is required (mandatory in Norelite messaging format) but not used to steer the light. <code>msg.payload.dim</code> is a value between 0-100 to set the brightness. <code>msg.payload.color</code> is the color in HEX format to set the color of the light.</p>
+    <p>Toggle can be set either by <code>msg.toggle</code> is set to <code>true</code> or mark the checkbox in the node configuration. This is an optional parameter. Note that <code>msg.payload.enabled</code> still must be <code>true</code> to work otherwise it will turn the light off. If toggle is enabled in the node configuration an incoming <code>msg.toggle</code> will not override the node configuration.</p>
+    <p>Transition time can be set either by <code>msg.payload.transition</code> or in the node specification. If set in the node specification that value will override any incoming value.</p>
     <h3>References</h3>
     <ul>
-        <li><a href="https://www.npmjs.com/package/node-red-contrib-norelite">Norelite</a> messaging format explained</li>
-    </ul> 
+    <li><a href="https://www.npmjs.com/package/node-red-contrib-norelite">Norelite</a> messaging format explained</li>
+    </ul>
     <h3>Examples</h3>
     <ul>
-        <li>Available at Import -> Examples in Node-RED</li>
-    </ul> 
+    <li>Available at Import -&gt; Examples in Node-RED</li>
+    </ul>
 </script>
 <script type="text/javascript">
     RED.nodes.registerType('lights-out', {
@@ -55,7 +46,8 @@
         color: "#34ebde",
         defaults: {
             name: {value: "", required: false},
-            toggle: {value: false, required: true}
+            toggle: {value: false, required: true},
+            transition: {value: "", required: false}
         },
         inputs: 1,
         outputs: 1,

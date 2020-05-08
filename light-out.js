@@ -13,23 +13,33 @@ module.exports = function (RED) {
       RED.nodes.createNode(this, config);
       var self = this;
       self.toggle = config.toggle;
+      self.transition = config.transition;
   
       common.setStatus(self);
   
       /* When a message is received */
       self.on("input", function (msg) {
         var omsg = new Message(self, msg);
+
         //Convert color to RGB
         var color = Helper.getColorHexToRgb(omsg.getColor());
 
         //Check if toggle is set in incoming message
         var toggleInMessage = (typeof msg.toggle === "boolean" && msg.toggle);
+
+        //Check if transition is set or in incoming message
+        var transition;
+        if (typeof self.transition != "undefined" && !isNaN(parseInt(self.transition.trim()))){
+            transition = parseInt(self.transition.trim());
+        } else {
+            transition = omsg.getTransition();
+        }
         
         var nmsg = {
             payload: {
                 "service" : "",
                 "data" : {
-                    "transition": omsg.getTransition()
+                    "transition": transition
                 }    
             }
         };
